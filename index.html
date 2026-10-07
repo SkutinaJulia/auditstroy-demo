@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>АудитСтрой - обследование зданий и перепланировки в Кургане</title>
+<meta name="description" content="Обследование зданий, строительная экспертиза, проекты перепланировки, разрешение на строительство и ввод в эксплуатацию в Кургане и Курганской области. Первая консультация бесплатно.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231e2427'/%3E%3Cpath d='M7 25V13l9-6 9 6v12' fill='none' stroke='%23e9ecea' stroke-width='2.4'/%3E%3Crect x='14' y='15' width='4' height='7' fill='%23f0b323'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+  :root {
+    --concrete: #e9ecea;
+    --paper: #ffffff;
+    --graphite: #1e2427;
+    --steel: #5b6569;
+    --signal: #f0b323;
+    --rule: #c8ceca;
+    --todo: #c8321e;
+    --f-display: "Wix Madefor Display", "Segoe UI", system-ui, sans-serif;
+    --f-text: "Golos Text", "Segoe UI", system-ui, sans-serif;
+    --wrap: 1120px;
+    --gut: clamp(16px, 4vw, 40px);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+  body { margin: 0; background: var(--concrete); color: var(--graphite); font: 400 17px/1.6 var(--f-text); }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gut); }
+  h1, h2, h3 { font-family: var(--f-display); font-weight: 700; line-height: 1.15; margin: 0; letter-spacing: -0.01em; }
+  h1 { font-size: clamp(32px, 4.6vw, 54px); }
+  h2 { font-size: clamp(26px, 3vw, 36px); margin-bottom: 12px; }
+  h3 { font-size: 20px; }
+  p { margin: 0 0 12px; }
+  .lead { font-size: clamp(18px, 1.6vw, 20px); color: var(--steel); max-width: 60ch; }
+
+  /* демо-плашка */
+  .demo { background: var(--graphite); color: var(--concrete); font-size: 14px; text-align: center; padding: 8px var(--gut); }
+
+  /* шапка */
+  .top { background: var(--paper); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 10; }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--f-display); font-weight: 700; font-size: 20px; }
+  .logo small { display: block; font: 400 13px/1.2 var(--f-text); color: var(--steel); }
+  .top nav { display: flex; gap: 22px; font-size: 15px; }
+  .top nav a { text-decoration: none; color: var(--steel); }
+  .top nav a:hover { color: var(--graphite); }
+  .top__phone { font-family: var(--f-display); font-weight: 700; font-size: 18px; text-decoration: none; white-space: nowrap; }
+  @media (max-width: 900px) { .top nav { display: none; } }
+  @media (max-width: 420px) { .logo small { display: none; } .top__phone { font-size: 16px; } }
+
+  /* кнопки */
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; min-height: 50px; padding: 0 22px; border-radius: 6px; font: 600 16px/1 var(--f-text); text-decoration: none; border: 2px solid var(--graphite); }
+  .btn--main { background: var(--signal); border-color: var(--signal); color: var(--graphite); }
+  .btn--main:hover { background: #e2a412; border-color: #e2a412; }
+  .btn--line:hover { background: var(--graphite); color: var(--concrete); }
+
+  /* первый экран */
+  .hero { padding: clamp(36px, 6vw, 72px) 0 clamp(32px, 5vw, 56px); }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(24px, 4vw, 56px); align-items: center; }
+  .hero h1 { margin-bottom: 18px; max-width: 16ch; }
+  .hero .lead { margin-bottom: 26px; }
+  .facts { list-style: none; padding: 0; margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 15px; color: var(--steel); }
+  .facts li { display: flex; align-items: center; gap: 8px; }
+  .facts li::before { content: ""; width: 10px; height: 10px; background: var(--signal); border-radius: 2px; flex: none; }
+  .drawing { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 14px; }
+  .drawing svg { display: block; width: 100%; height: auto; }
+  .drawing figcaption { font-size: 13px; color: var(--steel); padding: 8px 4px 0; }
+  @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } .hero h1 { max-width: none; } }
+
+  /* ситуации и вопросы */
+  .choose { background: var(--paper); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: clamp(36px, 5vw, 60px) 0; }
+  .choose p.lead { margin-bottom: 22px; }
+  .sit { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--graphite); }
+  .sit > li { border-bottom: 1px solid var(--rule); }
+  .sit__item { scroll-margin-top: 80px; }
+  .sit__item > summary { cursor: pointer; list-style: none; display: grid; grid-template-columns: 240px 1fr 150px 18px; gap: 8px 28px; align-items: baseline; padding: 20px 4px; }
+  .sit__item > summary::-webkit-details-marker { display: none; }
+  .sit__item > summary:hover { background: var(--concrete); }
+  .sit__item > summary::after { content: ""; width: 12px; height: 12px; border-right: 2.5px solid var(--graphite); border-bottom: 2.5px solid var(--graphite); transform: rotate(45deg); align-self: center; transition: transform .2s ease; }
+  .sit__item[open] > summary::after { transform: rotate(-135deg); }
+  .sit__item[open] > summary { background: var(--concrete); }
+  .sit b { font-family: var(--f-display); font-size: 20px; }
+  .sit summary span { color: var(--steel); }
+  .sit i { font-style: normal; font-weight: 600; white-space: nowrap; }
+  .sit__qa { padding: 6px 0 22px; margin-left: 272px; }
+  .sit i { text-align: right; }
+  .sit__qa details { border-bottom: 1px solid var(--rule); }
+  .sit__qa summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; padding: 16px 2px; font-family: var(--f-display); font-weight: 600; font-size: 18px; line-height: 1.35; }
+  .sit__qa summary::-webkit-details-marker { display: none; }
+  .sit__qa summary::after { content: "+"; flex: none; font: 400 26px/1 var(--f-text); color: var(--steel); }
+  .sit__qa details[open] summary::after { content: "2"; }
+  .answer { padding: 0 2px 18px; max-width: 68ch; }
+  .answer .verdict { display: inline-block; font-weight: 600; background: var(--signal); padding: 1px 8px; border-radius: 3px; margin-bottom: 8px; }
+  @media (max-width: 760px) {
+    .sit__item > summary { grid-template-columns: 1fr 18px; }
+    .sit__item > summary b { grid-column: 1; } .sit__item > summary::after { grid-column: 2; grid-row: 1; }
+    .sit__item > summary span, .sit__item > summary i { grid-column: 1 / -1; }
+    .sit__qa { margin-left: 0; }
+  }
+
+  /* как работаем */
+  .steps { background: var(--graphite); color: var(--concrete); padding: clamp(40px, 6vw, 72px) 0; }
+  .steps ol { list-style: none; counter-reset: s; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .steps li { counter-increment: s; border-top: 2px solid var(--signal); padding-top: 14px; }
+  .steps li::before { content: counter(s); font-family: var(--f-display); font-weight: 700; font-size: 34px; color: var(--signal); display: block; line-height: 1; margin-bottom: 10px; }
+  .steps h3 { font-size: 19px; margin-bottom: 6px; }
+  .steps p { color: #b9c1c3; font-size: 15px; }
+  @media (max-width: 860px) { .steps ol { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .steps ol { grid-template-columns: 1fr; } }
+
+  /* цены */
+  .prices { padding: clamp(40px, 6vw, 72px) 0; }
+  .prices table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--paper); border-radius: 8px; overflow: hidden; }
+  .prices th, .prices td { text-align: left; padding: 14px 18px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .prices th { font-family: var(--f-display); font-size: 15px; color: var(--steel); font-weight: 600; background: #f5f6f5; }
+  .prices td:last-child { white-space: nowrap; font-weight: 600; }
+  .prices td small { display: block; color: var(--steel); font-size: 14px; font-weight: 400; }
+  .note { color: var(--steel); font-size: 15px; margin-top: 14px; }
+  @media (max-width: 600px) { .prices th:last-child, .prices td:last-child { white-space: normal; } .prices th, .prices td { padding: 12px; } }
+
+  /* эксперт и документы */
+  .expert { background: var(--paper); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: clamp(40px, 6vw, 72px) 0; }
+  .expert .wrap { display: grid; grid-template-columns: 260px 1fr 1fr; gap: 36px; align-items: start; }
+  .photo { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; border-radius: 8px; background: var(--concrete); }
+  .expert ul { list-style: none; padding: 0; margin: 12px 0 0; }
+  .expert li { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  .expert li b { display: block; font-family: var(--f-display); }
+  .expert li span { color: var(--steel); font-size: 15px; }
+  @media (max-width: 900px) { .expert .wrap { grid-template-columns: 1fr; } .photo { max-width: 260px; } }
+
+  /* контакты */
+  .contact { padding: clamp(40px, 6vw, 72px) 0; }
+  .contact .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: start; }
+  .contact dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 10px 20px; }
+  .contact dt { color: var(--steel); }
+  .contact dd { margin: 0; font-weight: 500; }
+  @media (max-width: 760px) { .contact .wrap { grid-template-columns: 1fr; } }
+
+  /* как найти */
+  .find { background: var(--paper); border-top: 1px solid var(--rule); padding: clamp(40px, 6vw, 72px) 0; }
+  .find__grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; margin-top: 24px; align-items: start; }
+  .find__map { border-radius: 8px; overflow: hidden; border: 1px solid var(--rule); background: var(--concrete); aspect-ratio: 4 / 3; }
+  .find__map iframe { display: block; width: 100%; height: 100%; border: 0; }
+  .find__photo { margin: 0; }
+  .find__photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; background: var(--concrete); }
+  .find__photo figcaption { color: var(--steel); font-size: 14px; margin-top: 8px; }
+  .find__steps { margin: 18px 0 0; padding-left: 22px; }
+  .find__steps li { padding: 4px 0; }
+  .find__steps li::marker { font-family: var(--f-display); font-weight: 700; }
+  .find__links { margin-top: 14px; font-weight: 600; }
+  .find__links a { text-decoration-color: var(--signal); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  @media (max-width: 860px) { .find__grid { grid-template-columns: 1fr; } .find__map { aspect-ratio: 1 / 1; } }
+
+  footer { border-top: 1px solid var(--rule); padding: 22px 0 90px; font-size: 14px; color: var(--steel); }
+
+  /* нижняя панель на телефоне */
+  .bar { display: none; }
+  @media (max-width: 760px) {
+    .bar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); background: var(--paper); border-top: 1px solid var(--rule); }
+    .bar .btn { justify-content: center; padding: 0 10px; }
+  }
+
+  /* пометки для демо: что уточнить у клиента */
+  .todo { color: var(--todo); font-weight: 600; border-bottom: 1px dashed var(--todo); }
+</style>
+</head>
+<body>
+
+<div class="demo">Демо для АудитСтрой · прототип сайта от JuliaDirect. Красным отмечено то, что нужно уточнить и исправить</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="АудитСтрой, на главную">
+      <svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="#1e2427"/><path d="M7 25V13l9-6 9 6v12" fill="none" stroke="#e9ecea" stroke-width="2.4"/><rect x="14" y="15" width="4" height="7" fill="#f0b323"/></svg>
+      <span>АудитСтрой<small>обследование зданий, Курган</small></span>
+    </a>
+    <nav aria-label="Разделы">
+      <a href="#situacii">Вопросы и ответы</a>
+      <a href="#ceny">Цены</a>
+      <a href="#kontakty">Контакты</a>
+      <a href="#kak-nayti">Как найти</a>
+    </nav>
+    <a class="top__phone" href="tel:+79195917938">+7 919 591-79-38</a>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Обследуем здания и оформляем перепланировки в Кургане и области</h1>
+      <p class="lead">Скажем, в каком состоянии дом или квартира, и подготовим документы, которые примут администрация, банк и суд. Пришлите фото или план, и мы бесплатно ответим, что делать и сколько это стоит.</p>
+      <div class="btns">
+        <a class="btn btn--main" href="https://t.me/MuzAleksandr" target="_blank" rel="noopener">Написать в Telegram</a>
+        <a class="btn btn--line" href="tel:+79195917938">Позвонить</a>
+      </div>
+      <ul class="facts">
+        <li>Больше 10 лет и 1000 объектов</li>
+        <li>По ГОСТ 31937-2024</li>
+        <li>Выезд по всей области</li>
+        <li>Первая консультация бесплатно</li>
+      </ul>
+    </div>
+
+    <figure class="drawing">
+      <svg viewBox="0 0 450 330" role="img" aria-label="Чертеж разреза двухэтажного дома с размерами и отмеченной трещиной на стене">
+        <defs>
+          <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#5b6569" stroke-width="1"/></pattern>
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#e9ecea" stroke-width="1"/></pattern>
+        </defs>
+        <rect width="450" height="330" fill="url(#grid)"/>
+        <!-- грунт и фундамент -->
+        <line x1="20" y1="262" x2="400" y2="262" stroke="#1e2427" stroke-width="2"/>
+        <rect x="88" y="262" width="20" height="40" fill="url(#hatch)" stroke="#1e2427" stroke-width="1.5"/>
+        <rect x="292" y="262" width="20" height="40" fill="url(#hatch)" stroke="#1e2427" stroke-width="1.5"/>
+        <!-- стены -->
+        <rect x="92" y="96" width="12" height="166" fill="#1e2427"/>
+        <rect x="296" y="96" width="12" height="166" fill="#1e2427"/>
+        <!-- перекрытия -->
+        <rect x="92" y="176" width="216" height="8" fill="#5b6569"/>
+        <rect x="92" y="92" width="216" height="8" fill="#5b6569"/>
+        <!-- кровля -->
+        <path d="M78 96 L200 34 L322 96" fill="none" stroke="#1e2427" stroke-width="3" stroke-linejoin="round"/>
+        <!-- окна -->
+        <rect x="150" y="118" width="40" height="36" fill="none" stroke="#5b6569" stroke-width="1.5"/>
+        <rect x="216" y="118" width="40" height="36" fill="none" stroke="#5b6569" stroke-width="1.5"/>
+        <rect x="150" y="204" width="40" height="36" fill="none" stroke="#5b6569" stroke-width="1.5"/>
+        <rect x="222" y="200" width="30" height="62" fill="none" stroke="#5b6569" stroke-width="1.5"/>
+        <!-- трещина и маячок -->
+        <path d="M299 196 l4 9 -3 7 5 10 -2 8 4 9" fill="none" stroke="#f0b323" stroke-width="2.5" stroke-linecap="round"/>
+        <rect x="294" y="213" width="22" height="8" rx="1.5" fill="#f0b323" stroke="#1e2427" stroke-width="1"/>
+        <line x1="316" y1="217" x2="342" y2="232" stroke="#1e2427" stroke-width="1"/>
+        <text x="345" y="236" font-family="Golos Text, sans-serif" font-size="12" fill="#1e2427">трещина 0,3 мм</text>
+        <text x="345" y="251" font-family="Golos Text, sans-serif" font-size="12" fill="#5b6569">маячок № 2</text>
+        <!-- размер по ширине -->
+        <line x1="92" y1="318" x2="308" y2="318" stroke="#1e2427" stroke-width="1"/>
+        <line x1="86" y1="324" x2="98" y2="312" stroke="#1e2427" stroke-width="1.5"/>
+        <line x1="302" y1="324" x2="314" y2="312" stroke="#1e2427" stroke-width="1.5"/>
+        <line x1="92" y1="304" x2="92" y2="322" stroke="#1e2427" stroke-width="0.8"/>
+        <line x1="308" y1="304" x2="308" y2="322" stroke="#1e2427" stroke-width="0.8"/>
+        <text x="200" y="313" text-anchor="middle" font-family="Golos Text, sans-serif" font-size="12" fill="#1e2427">9 600</text>
+        <!-- размеры по высоте -->
+        <line x1="44" y1="100" x2="44" y2="262" stroke="#1e2427" stroke-width="1"/>
+        <line x1="38" y1="106" x2="50" y2="94" stroke="#1e2427" stroke-width="1.5"/>
+        <line x1="38" y1="186" x2="50" y2="174" stroke="#1e2427" stroke-width="1.5"/>
+        <line x1="38" y1="268" x2="50" y2="256" stroke="#1e2427" stroke-width="1.5"/>
+        <text x="36" y="144" text-anchor="middle" font-family="Golos Text, sans-serif" font-size="12" fill="#1e2427" transform="rotate(-90 36 144)">3 000</text>
+        <text x="36" y="222" text-anchor="middle" font-family="Golos Text, sans-serif" font-size="12" fill="#1e2427" transform="rotate(-90 36 222)">2 800</text>
+        <!-- метка фундамента -->
+        <line x1="108" y1="290" x2="140" y2="290" stroke="#1e2427" stroke-width="1"/>
+        <text x="144" y="294" font-family="Golos Text, sans-serif" font-size="12" fill="#5b6569">фундамент в норме</text>
+      </svg>
+      <figcaption>Так выглядит обследование: обмеры, проверка фундамента и стен, маячки на трещинах. В заключении будет, что с домом и что делать.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="choose" id="situacii">
+  <div class="wrap">
+    <h2>С чем к нам приходят</h2>
+    <p class="lead">Нажмите на свою ситуацию: откроются ответы на вопросы, которые задают чаще всего. Не нашли свой вопрос? Напишите его в Telegram, ответит эксперт.</p>
+    <ul class="sit">
+      <li><details class="sit__item" id="kvartira" open><summary><b>Перепланировка квартиры</b><span>Узаконить сделанное, согласовать до ремонта, банк не дает ипотеку покупателю</span><i><span class="todo">цена уточняется</span></i></summary><div class="sit__qa"><details>
+          <summary>Перепланировку уже сделали. Можно ли ее узаконить?</summary>
+          <div class="answer">
+            <span class="verdict">Чаще всего да</span>
+            <p>Осмотрим квартиру, сделаем обмеры и техническое заключение о том, что конструкции дома не пострадали. Затем подготовим проект и подадим документы в администрацию. Если администрация откажет, это заключение пригодится в суде.</p>
+            <p>Узаконить не получится, если ослабили несущие стены, ухудшили условия соседей или объединили кухню с газовой плитой и комнату без перегородки. Это скажем сразу после осмотра.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Продаю квартиру, а банк не дает покупателю ипотеку из-за перепланировки. Что делать?</summary>
+          <div class="answer">
+            <span class="verdict">Оформить перепланировку до сделки</span>
+            <p>Пришлите фото плана из техпаспорта и фото квартиры. Скажем, что именно не устраивает банк и что быстрее: узаконить изменения или вернуть как было по плану.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Хочу снести стену. Как понять, можно ли?</summary>
+          <div class="answer">
+            <span class="verdict">Зависит от того, несущая ли стена</span>
+            <p>Определим по плану БТИ и на месте. Перегородку обычно можно убрать по проекту. Проем в несущей стене делают только с расчетом и усилением, а в панельных домах это чаще всего запрещено.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Что нужно подготовить?</summary>
+          <div class="answer">
+            <span class="verdict">План и выписка</span>
+            <p>Техпаспорт или поэтажный план БТИ, выписка из ЕГРН и фото комнат. Если документов нет, подскажем, где их заказать.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Сколько времени занимает?</summary>
+          <div class="answer">
+            <span class="verdict">Проект за <span class="todo">N</span> рабочих дней</span>
+            <p>Согласование в администрации идет по ее срокам, обычно до 45 дней. Мы сопровождаем его до решения.</p>
+          </div>
+        </details></div></details></li>
+      <li><details class="sit__item" id="dom"><summary><b>Частный дом и постройки</b><span>Уведомление о строительстве, пристрой, баня, гараж, трещины в стенах</span><i><span class="todo">цена уточняется</span></i></summary><div class="sit__qa"><details>
+          <summary>Нужно ли разрешение на строительство частного дома?</summary>
+          <div class="answer">
+            <span class="verdict">Нет, нужно уведомление</span>
+            <p>Для жилого дома на участке под ИЖС вместо разрешения подают уведомление в администрацию: перед началом стройки и после ее окончания. Подготовим проект и документы и подскажем, что заполнить.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Как оформить пристрой, баню или гараж?</summary>
+          <div class="answer">
+            <span class="verdict">Сначала смотрим саму постройку</span>
+            <p>Проверяем, капитальная ли постройка и как она стоит относительно границ участка. Затем готовим техническое заключение и документы для регистрации. Если постройка нарушает отступы, скажем, как действовать дальше.</p>
+          </div>
+        </details>
+        <details>
+          <summary>По дому пошли трещины. Это опасно?</summary>
+          <div class="answer">
+            <span class="verdict">Скажем после обследования</span>
+            <p>Осмотрим фундамент, стены и перекрытия, поставим маячки на трещины, чтобы понять, растут ли они. В заключении будет причина и что нужно сделать: наблюдать, усилить или срочно ремонтировать.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Как признать дом аварийным?</summary>
+          <div class="answer">
+            <span class="verdict">Через комиссию администрации</span>
+            <p>Жители подают заявление в межведомственную комиссию, к нему прикладывают заключение специализированной организации о состоянии дома. Это заключение делаем мы: обследуем дом по ГОСТ 31937-2024 и описываем все дефекты. Решение принимает комиссия.</p>
+          </div>
+        </details></div></details></li>
+      <li><details class="sit__item" id="biznes"><summary><b>Магазин, склад, шиномонтаж</b><span>Проект, разрешение на строительство, ввод в эксплуатацию, перевод в нежилое</span><i><span class="todo">цена уточняется</span></i></summary><div class="sit__qa"><details>
+          <summary>Строю магазин или шиномонтаж. Какие нужны документы?</summary>
+          <div class="answer">
+            <span class="verdict">Проект, разрешение и ввод в эксплуатацию</span>
+            <p>Подготовим проект, получим разрешение на строительство, а после стройки поможем ввести здание в эксплуатацию, чтобы его можно было зарегистрировать и сдавать в аренду.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Хочу открыть магазин в квартире на первом этаже. Что нужно?</summary>
+          <div class="answer">
+            <span class="verdict">Перевод в нежилое помещение</span>
+            <p>Нужен проект перепланировки с отдельным входом и решение администрации о переводе. Сначала проверим, можно ли перевести именно эту квартиру.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Покупаю или арендую здание. Стоит ли его проверить?</summary>
+          <div class="answer">
+            <span class="verdict">Да, до подписания договора</span>
+            <p>Обследование покажет состояние фундамента, стен, кровли и сетей и сколько примерно уйдет на ремонт. С заключением проще договориться о цене.</p>
+          </div>
+        </details></div></details></li>
+      <li><details class="sit__item" id="ekspertiza"><summary><b>Спор, суд или покупка</b><span>Экспертиза для суда с застройщиком или подрядчиком, проверка дома перед покупкой</span><i><span class="todo">цена уточняется</span></i></summary><div class="sit__qa"><details>
+          <summary>Застройщик или подрядчик сделал с нарушениями. Чем поможете?</summary>
+          <div class="answer">
+            <span class="verdict">Заключением для претензии и суда</span>
+            <p>Зафиксируем дефекты с замерами и фото, укажем нарушенные нормы и стоимость исправления. С таким заключением можно отправить претензию или обратиться в суд.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Примет ли суд ваше заключение?</summary>
+          <div class="answer">
+            <span class="verdict">Делаем его по правилам для суда</span>
+            <p>Заключение по ГОСТ и СП, с замерами, фото и расчетами. Оценивает его суд, поэтому мы пишем выводы понятно и с опорой на нормы.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Покупаю дом. Что проверите?</summary>
+          <div class="answer">
+            <span class="verdict">Все, что потом дорого чинить</span>
+            <p>Фундамент, стены, перекрытия, кровлю, сырость в подвале, инженерные сети. Скажем честно, есть ли скрытые проблемы, без запугивания.</p>
+          </div>
+        </details></div></details></li>
+      <li><details class="sit__item" id="organizacii"><summary><b>Администрации и учреждения</b><span>Обследование по ГОСТ, заключения по аварийным домам, дефектные ведомости</span><i>по смете</i></summary><div class="sit__qa"><details>
+          <summary>Работаете с бюджетными учреждениями?</summary>
+          <div class="answer">
+            <span class="verdict">Да, по 44-ФЗ и 223-ФЗ</span>
+            <p>Договор, акты и полный пакет закрывающих документов. Подготовим коммерческое предложение для обоснования цены закупки.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Что входит в обследование здания?</summary>
+          <div class="answer">
+            <span class="verdict">По ГОСТ 31937-2024</span>
+            <p>Изучаем документы, осматриваем и обмеряем конструкции, проверяем дефекты приборами, при необходимости считаем несущую способность. Итог: заключение с категорией технического состояния и рекомендациями.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Нужна дефектная ведомость и решение для ремонта.</summary>
+          <div class="answer">
+            <span class="verdict">Сделаем</span>
+            <p>Обмеры, дефектная ведомость и техническое решение: что разобрать, что усилить, какие материалы. Подрядчик понимает, что делать, а заказчик знает, какой результат должен получить.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Есть ли у вас СРО?</summary>
+          <div class="answer">
+            <span class="verdict"><span class="todo">уточняется</span></span>
+            <p>Работаем по ГОСТ, СП и СанПиН, есть страховка и профессиональное оборудование.</p>
+          </div>
+        </details></div></details></li>
+    </ul>
+  </div>
+</section>
+
+
+<section class="steps">
+  <div class="wrap">
+    <h2>Как проходит работа</h2>
+    <ol>
+      <li><h3>Пишете или звоните</h3><p>Присылаете фото объекта, план или коротко описываете задачу.</p></li>
+      <li><h3>Бесплатная консультация</h3><p>Говорим, что можно сделать, какие документы нужны и сколько это стоит.</p></li>
+      <li><h3>Выезд на объект</h3><p>Осмотр, обмеры, фото, проверка приборами. Выезжаем по всей области.</p></li>
+      <li><h3>Заключение или проект</h3><p>Передаем документы и сопровождаем согласование, если оно нужно.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="prices" id="ceny">
+  <div class="wrap">
+    <h2>Цены</h2>
+    <p class="lead">Точная цена зависит от площади и задачи. Назовем ее бесплатно после фото и короткого разговора.</p>
+    <table>
+      <thead><tr><th>Услуга</th><th>Цена</th></tr></thead>
+      <tbody>
+        <tr><td>Проект перепланировки квартиры<small>обмеры, проект, техническое заключение</small></td><td><span class="todo">цена уточняется</span></td></tr>
+        <tr><td>Перепланировка под ключ<small>проект и согласование в администрации</small></td><td><span class="todo">цена уточняется</span></td></tr>
+        <tr><td>Обследование квартиры или частного дома<small>заключение о техническом состоянии</small></td><td><span class="todo">цена уточняется</span></td></tr>
+        <tr><td>Строительная экспертиза для суда<small>замеры, фото, выводы со ссылками на нормы</small></td><td><span class="todo">цена уточняется</span></td></tr>
+        <tr><td>Проект и разрешение на строительство<small>магазины, склады, шиномонтажи</small></td><td><span class="todo">цена уточняется</span></td></tr>
+        <tr><td>Обследование здания для организаций<small>по ГОСТ 31937-2024, дефектные ведомости</small></td><td>по смете</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Первая консультация бесплатно. Выезд по Курганской области.</p>
+  </div>
+</section>
+
+<section class="expert">
+  <div class="wrap">
+    <img class="photo" src="assets/expert-muzychenko.jpg" width="640" height="640" alt="Александр Музыченко, эксперт по обследованию зданий">
+    <div>
+      <h2>Александр Музыченко</h2>
+      <p class="lead">Эксперт по обследованию зданий и строительной экспертизе. Больше 10 лет в профессии и больше 1000 обследованных объектов: квартиры, частные дома, многоквартирные дома, коммерческие здания.</p>
+      <p>Без паники и запугивания: только замеры, расчеты и выводы. Объясняем простыми словами, что с домом и что с этим делать.</p>
+    </div>
+    <div>
+      <h3>По каким документам работаем</h3>
+      <ul>
+        <li><b>ГОСТ 31937-2024</b><span>правила обследования технического состояния зданий</span></li>
+        <li><b>СП и СанПиН</b><span>нормы, на которые ссылаемся в каждом заключении</span></li>
+        <li><b>Договор и страховка</b><span>фиксируем сроки и цену, ответственность застрахована</span></li>
+        <li><b>СРО</b><span class="todo">уточняется у клиента</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakty">
+  <div class="wrap">
+    <div>
+      <h2>Опишите задачу</h2>
+      <p class="lead">Пришлите фото объекта или плана и пару слов о том, что нужно. Ответим в рабочее время в течение дня.</p>
+      <div class="btns">
+        <a class="btn btn--main" href="https://t.me/MuzAleksandr" target="_blank" rel="noopener">Написать в Telegram</a>
+        <a class="btn btn--line" href="tel:+79195917938">Позвонить</a>
+      </div>
+    </div>
+    <dl>
+      <dt>Телефон</dt><dd><a href="tel:+79195917938">+7 919 591-79-38</a></dd>
+      <dt>Telegram</dt><dd><a href="https://t.me/MuzAleksandr" target="_blank" rel="noopener">@MuzAleksandr</a></dd>
+      <dt>Офис</dt><dd><a href="https://yandex.ru/maps/org/auditstroy/124958222541" target="_blank" rel="noopener">Курган, ул. Советская, 128, офис 612, 6 этаж</a></dd>
+      <dt>Время</dt><dd>пн-пт 9:00-18:00</dd>
+      <dt>Выезд</dt><dd>Курган и вся Курганская область</dd>
+    </dl>
+  </div>
+</section>
+
+<section class="find" id="kak-nayti">
+  <div class="wrap">
+    <h2>Как нас найти</h2>
+    <p class="lead">Офис в центре Кургана, в 200 метрах от Центрального рынка. Перед визитом позвоните или напишите: эксперт может быть на выезде.</p>
+    <div class="find__grid">
+      <div class="find__map">
+        <iframe src="https://yandex.ru/map-widget/v1/org/auditstroy/124958222541/?z=17" title="АудитСтрой на Яндекс Картах" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <div class="find__side">
+        <figure class="find__photo"><img src="assets/vhod-sovetskaya-128.jpg" width="960" height="720" alt="Здание на улице Советской, 128: лестница с желтыми ступенями ко входу" loading="lazy"><figcaption>Здание на Советской, 128. Ко входу ведет лестница с желтыми ступенями.</figcaption></figure>
+        <ol class="find__steps">
+          <li>Улица Советская, 128. Ориентир: Центральный рынок, 200 метров.</li>
+          <li>Поднимитесь на 6 этаж.</li>
+          <li>Офис 612.</li>
+        </ol>
+        <p class="find__links"><a href="https://yandex.ru/maps/org/auditstroy/124958222541/" target="_blank" rel="noopener">Открыть в Яндекс Картах и построить маршрут</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">АудитСтрой, Курган. демо-макет · собрала JuliaDirect, реквизиты ставятся при запуске</div>
+</footer>
+
+<div class="bar">
+  <a class="btn btn--main" href="https://t.me/MuzAleksandr" target="_blank" rel="noopener">Telegram</a>
+  <a class="btn btn--line" href="tel:+79195917938">Позвонить</a>
+</div>
+
+</body>
+</html>
