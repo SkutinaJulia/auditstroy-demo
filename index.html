@@ -7,6 +7,9 @@
 <meta name="description" content="Обследование зданий, строительная экспертиза, проекты перепланировки, разрешение на строительство и ввод в эксплуатацию в Кургане и Курганской области. Первая консультация бесплатно.">
 <meta name="robots" content="noindex">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231e2427'/%3E%3Cpath d='M7 25V13l9-6 9 6v12' fill='none' stroke='%23e9ecea' stroke-width='2.4'/%3E%3Crect x='14' y='15' width='4' height='7' fill='%23f0b323'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;600&display=swap">
 <link rel="stylesheet" href="assets/fonts.css">
 <style>
   :root {
@@ -19,6 +22,8 @@
     --todo: #c8321e;
     --f-display: "Wix Madefor Display", "Segoe UI", system-ui, sans-serif;
     --f-text: "Golos Text", "Segoe UI", system-ui, sans-serif;
+    --f-brand: "Oswald", "Arial Narrow", sans-serif;
+    --paper-line: rgb(30 36 39 / .05);
     --wrap: 1120px;
     --gut: clamp(16px, 4vw, 40px);
   }
@@ -42,6 +47,7 @@
   /* шапка */
   .top { background: var(--paper); border-bottom: 1px solid var(--rule); position: sticky; top: 0; z-index: 10; }
   .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
+  .logo__img { border-radius: 50%; border: 1px solid var(--rule); }
   .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--f-display); font-weight: 700; font-size: 20px; }
   .logo small { display: block; font: 400 13px/1.2 var(--f-text); color: var(--steel); }
   .top nav { display: flex; gap: 22px; font-size: 15px; }
@@ -58,18 +64,35 @@
   .btn--main:hover { background: #e2a412; border-color: #e2a412; }
   .btn--line:hover { background: var(--graphite); color: var(--concrete); }
 
-  /* первый экран */
-  .hero { padding: clamp(36px, 6vw, 72px) 0 clamp(32px, 5vw, 56px); }
-  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(24px, 4vw, 56px); align-items: center; }
-  .hero h1 { margin-bottom: 18px; max-width: 16ch; }
-  .hero .lead { margin-bottom: 26px; }
-  .facts { list-style: none; padding: 0; margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 15px; color: var(--steel); }
-  .facts li { display: flex; align-items: center; gap: 8px; }
-  .facts li::before { content: ""; width: 10px; height: 10px; background: var(--signal); border-radius: 2px; flex: none; }
-  .drawing { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 14px; }
-  .drawing svg { display: block; width: 100%; height: auto; }
-  .drawing figcaption { font-size: 13px; color: var(--steel); padding: 8px 4px 0; }
-  @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } .hero h1 { max-width: none; } }
+  /* первый экран: в стиле шапки группы ВК */
+  .hero { padding: clamp(32px, 5vw, 64px) 0 clamp(32px, 5vw, 56px); background:
+      linear-gradient(var(--paper-line) 1px, transparent 1px) 0 0 / 28px 28px,
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px) 0 0 / 28px 28px, var(--concrete); }
+  .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px clamp(24px, 4vw, 48px); align-items: start; }
+  .brand { font-family: var(--f-brand); font-weight: 300; font-size: clamp(54px, 9vw, 112px); line-height: .9; letter-spacing: .08em; margin: 0; color: #141618; }
+  .brand__sub { font-family: var(--f-brand); font-weight: 500; font-size: clamp(18px, 2.1vw, 26px); line-height: 1.2; margin: 10px 0 26px; }
+  .hero h1 { font-size: clamp(22px, 2.3vw, 28px); margin-bottom: 12px; max-width: 30ch; }
+  .hero .lead { margin-bottom: 24px; }
+  .hero__photo { margin: 0; }
+  .hero__photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; border: 1px solid var(--rule); }
+  .hero__photo figcaption { font-size: 13px; color: var(--steel); margin-top: 8px; }
+  .stats { grid-column: 1 / -1; list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .stats li { display: flex; gap: 12px; align-items: center; border: 2px solid #141618; border-radius: 10px; padding: 12px 14px; background: rgb(255 255 255 / .7); }
+  .stats svg { width: 38px; height: 38px; flex: none; fill: none; stroke: #141618; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .stats span { font-family: var(--f-brand); font-size: 17px; line-height: 1.15; }
+  .stats b { display: block; font-size: 24px; font-weight: 600; }
+  @media (max-width: 960px) { .stats { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 860px) { .hero .wrap { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .stats { grid-template-columns: 1fr; } }
+
+  /* фото с объектов */
+  .objects { padding: clamp(40px, 6vw, 72px) 0 0; }
+  .objects .lead a { color: var(--graphite); text-decoration-color: var(--signal); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .objects__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 22px; }
+  .objects figure { margin: 0; }
+  .objects img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; background: var(--rule); }
+  .objects figcaption { font-size: 14px; color: var(--steel); margin-top: 8px; }
+  @media (max-width: 860px) { .objects__grid { grid-template-columns: 1fr 1fr; } }
 
   /* ситуации и вопросы */
   .choose { background: var(--paper); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: clamp(36px, 5vw, 60px) 0; }
@@ -175,7 +198,7 @@
 <header class="top">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="АудитСтрой, на главную">
-      <svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="#1e2427"/><path d="M7 25V13l9-6 9 6v12" fill="none" stroke="#e9ecea" stroke-width="2.4"/><rect x="14" y="15" width="4" height="7" fill="#f0b323"/></svg>
+      <img class="logo__img" src="assets/logo-auditstroy.jpg" width="40" height="40" alt="">
       <span>АудитСтрой<small>обследование зданий, Курган</small></span>
     </a>
     <nav aria-label="Разделы">
@@ -192,71 +215,26 @@
 
 <section class="hero">
   <div class="wrap">
-    <div>
+    <div class="hero__text">
+      <p class="brand" aria-hidden="true">АУДИТСТРОЙ</p>
+      <p class="brand__sub">обследование зданий и сооружений, строительная экспертиза</p>
       <h1>Обследуем здания и оформляем перепланировки в Кургане и области</h1>
       <p class="lead">Скажем, в каком состоянии дом или квартира, и подготовим документы, которые примут администрация, банк и суд. Пришлите фото или план, и мы бесплатно ответим, что делать и сколько это стоит.</p>
       <div class="btns">
         <a class="btn btn--main" href="https://t.me/MuzAleksandr" target="_blank" rel="noopener">Написать в Telegram</a>
         <a class="btn btn--line" href="tel:+79195917938">Позвонить</a>
       </div>
-      <ul class="facts">
-        <li>Больше 10 лет и 1000 объектов</li>
-        <li>По ГОСТ 31937-2024</li>
-        <li>Выезд по всей области</li>
-        <li>Первая консультация бесплатно</li>
-      </ul>
     </div>
-
-    <figure class="drawing">
-      <svg viewBox="0 0 450 330" role="img" aria-label="Чертеж разреза двухэтажного дома с размерами и отмеченной трещиной на стене">
-        <defs>
-          <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#5b6569" stroke-width="1"/></pattern>
-          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#e9ecea" stroke-width="1"/></pattern>
-        </defs>
-        <rect width="450" height="330" fill="url(#grid)"/>
-        <!-- грунт и фундамент -->
-        <line x1="20" y1="262" x2="400" y2="262" stroke="#1e2427" stroke-width="2"/>
-        <rect x="88" y="262" width="20" height="40" fill="url(#hatch)" stroke="#1e2427" stroke-width="1.5"/>
-        <rect x="292" y="262" width="20" height="40" fill="url(#hatch)" stroke="#1e2427" stroke-width="1.5"/>
-        <!-- стены -->
-        <rect x="92" y="96" width="12" height="166" fill="#1e2427"/>
-        <rect x="296" y="96" width="12" height="166" fill="#1e2427"/>
-        <!-- перекрытия -->
-        <rect x="92" y="176" width="216" height="8" fill="#5b6569"/>
-        <rect x="92" y="92" width="216" height="8" fill="#5b6569"/>
-        <!-- кровля -->
-        <path d="M78 96 L200 34 L322 96" fill="none" stroke="#1e2427" stroke-width="3" stroke-linejoin="round"/>
-        <!-- окна -->
-        <rect x="150" y="118" width="40" height="36" fill="none" stroke="#5b6569" stroke-width="1.5"/>
-        <rect x="216" y="118" width="40" height="36" fill="none" stroke="#5b6569" stroke-width="1.5"/>
-        <rect x="150" y="204" width="40" height="36" fill="none" stroke="#5b6569" stroke-width="1.5"/>
-        <rect x="222" y="200" width="30" height="62" fill="none" stroke="#5b6569" stroke-width="1.5"/>
-        <!-- трещина и маячок -->
-        <path d="M299 196 l4 9 -3 7 5 10 -2 8 4 9" fill="none" stroke="#f0b323" stroke-width="2.5" stroke-linecap="round"/>
-        <rect x="294" y="213" width="22" height="8" rx="1.5" fill="#f0b323" stroke="#1e2427" stroke-width="1"/>
-        <line x1="316" y1="217" x2="342" y2="232" stroke="#1e2427" stroke-width="1"/>
-        <text x="345" y="236" font-family="Golos Text, sans-serif" font-size="12" fill="#1e2427">трещина 0,3 мм</text>
-        <text x="345" y="251" font-family="Golos Text, sans-serif" font-size="12" fill="#5b6569">маячок № 2</text>
-        <!-- размер по ширине -->
-        <line x1="92" y1="318" x2="308" y2="318" stroke="#1e2427" stroke-width="1"/>
-        <line x1="86" y1="324" x2="98" y2="312" stroke="#1e2427" stroke-width="1.5"/>
-        <line x1="302" y1="324" x2="314" y2="312" stroke="#1e2427" stroke-width="1.5"/>
-        <line x1="92" y1="304" x2="92" y2="322" stroke="#1e2427" stroke-width="0.8"/>
-        <line x1="308" y1="304" x2="308" y2="322" stroke="#1e2427" stroke-width="0.8"/>
-        <text x="200" y="313" text-anchor="middle" font-family="Golos Text, sans-serif" font-size="12" fill="#1e2427">9 600</text>
-        <!-- размеры по высоте -->
-        <line x1="44" y1="100" x2="44" y2="262" stroke="#1e2427" stroke-width="1"/>
-        <line x1="38" y1="106" x2="50" y2="94" stroke="#1e2427" stroke-width="1.5"/>
-        <line x1="38" y1="186" x2="50" y2="174" stroke="#1e2427" stroke-width="1.5"/>
-        <line x1="38" y1="268" x2="50" y2="256" stroke="#1e2427" stroke-width="1.5"/>
-        <text x="36" y="144" text-anchor="middle" font-family="Golos Text, sans-serif" font-size="12" fill="#1e2427" transform="rotate(-90 36 144)">3 000</text>
-        <text x="36" y="222" text-anchor="middle" font-family="Golos Text, sans-serif" font-size="12" fill="#1e2427" transform="rotate(-90 36 222)">2 800</text>
-        <!-- метка фундамента -->
-        <line x1="108" y1="290" x2="140" y2="290" stroke="#1e2427" stroke-width="1"/>
-        <text x="144" y="294" font-family="Golos Text, sans-serif" font-size="12" fill="#5b6569">фундамент в норме</text>
-      </svg>
-      <figcaption>Так выглядит обследование: обмеры, проверка фундамента и стен, маячки на трещинах. В заключении будет, что с домом и что делать.</figcaption>
+    <figure class="hero__photo">
+      <img src="assets/obj-podval-fundament.jpg" width="1280" height="960" alt="Подвал многоквартирного дома: фундамент, кладка и трубы во время обследования">
+      <figcaption>Обследование подвала многоквартирного дома: фундамент и коммуникации</figcaption>
     </figure>
+    <ul class="stats">
+      <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 27c0-8 5-14 12-14s12 6 12 14M4 27h32v4H4zM16 14l1-5h6l1 5M20 9v18"/></svg><span><b>15+ лет</b>в строительстве</span></li>
+      <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 34h28M10 34V22h5v12M18 34V16h5v18M26 34V10h5v24"/></svg><span><b>3000+</b>обследованных зданий и сооружений</span></li>
+      <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 7h26v26H7zM7 16h12v17M19 7v9M26 22l5-5"/></svg><span><b>10+ лет</b>в проектировании</span></li>
+      <li><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 5l12 5v9c0 8-5 13-12 16C13 32 8 27 8 19v-9zM14 20l4 4 8-8"/></svg><span><b>Свое оборудование</b>работа по ГОСТ, выезд по области</span></li>
+    </ul>
   </div>
 </section>
 
@@ -416,6 +394,19 @@
   </div>
 </section>
 
+<section class="objects">
+  <div class="wrap">
+    <h2>С наших объектов</h2>
+    <p class="lead">Фото из реальных обследований в Кургане и области. Больше фото в нашей <a href="https://vk.ru/auditstroy" target="_blank" rel="noopener">группе ВКонтакте</a>.</p>
+    <div class="objects__grid">
+      <figure><img src="assets/obj-kryltso-armatura.jpg" width="1280" height="960" alt="Разрушенная входная группа: бетон осыпался, видна арматура" loading="lazy"><figcaption>Входная группа: разрушение бетона, оголенная арматура</figcaption></figure>
+      <figure><img src="assets/obj-krovlya-mkd.jpg" width="1280" height="720" alt="Плоская кровля многоквартирного дома" loading="lazy"><figcaption>Плоская кровля многоквартирного дома</figcaption></figure>
+      <figure><img src="assets/obj-cherdak-stropila.jpg" width="1280" height="960" alt="Чердак: деревянная стропильная система" loading="lazy"><figcaption>Чердак: стропильная система</figcaption></figure>
+      <figure><img src="assets/obj-dom-mkd.jpg" width="1280" height="960" alt="Пятиэтажный многоквартирный дом" loading="lazy"><figcaption>Многоквартирный дом перед обследованием</figcaption></figure>
+    </div>
+  </div>
+</section>
+
 <section class="prices" id="ceny">
   <div class="wrap">
     <h2>Цены</h2>
@@ -440,7 +431,7 @@
     <img class="photo" src="assets/expert-muzychenko.jpg" width="640" height="640" alt="Александр Музыченко, эксперт по обследованию зданий">
     <div>
       <h2>Александр Музыченко</h2>
-      <p class="lead">Эксперт по обследованию зданий и строительной экспертизе. Больше 10 лет в профессии и больше 1000 обследованных объектов: квартиры, частные дома, многоквартирные дома, коммерческие здания.</p>
+      <p class="lead">Эксперт по обследованию зданий и строительной экспертизе. 15 лет в строительстве, 10 лет в проектировании и больше 3000 обследованных зданий и сооружений: квартиры, частные дома, многоквартирные дома, коммерческие здания.</p>
       <p>Без паники и запугивания: только замеры, расчеты и выводы. Объясняем простыми словами, что с домом и что с этим делать.</p>
     </div>
     <div>
