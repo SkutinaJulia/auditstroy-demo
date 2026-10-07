@@ -70,7 +70,7 @@
       linear-gradient(90deg, var(--paper-line) 1px, transparent 1px) 0 0 / 28px 28px, var(--concrete); }
   .hero .wrap { display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px clamp(24px, 4vw, 48px); align-items: start; }
   .brand { font-family: var(--f-brand); font-weight: 300; font-size: clamp(54px, 9vw, 112px); line-height: .9; letter-spacing: .08em; margin: 0; color: #141618; }
-  .brand__sub { font-family: var(--f-brand); font-weight: 500; font-size: clamp(18px, 2.1vw, 26px); line-height: 1.2; margin: 10px 0 26px; }
+  .hero h1.brand__sub { font-family: var(--f-brand); font-weight: 500; font-size: clamp(20px, 2.3vw, 28px); line-height: 1.2; letter-spacing: 0; margin: 12px 0 18px; max-width: 32ch; }
   .hero h1 { font-size: clamp(22px, 2.3vw, 28px); margin-bottom: 12px; max-width: 30ch; }
   .hero .lead { margin-bottom: 24px; }
   .hero__photo { margin: 0; }
@@ -198,8 +198,8 @@
 <header class="top">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="АудитСтрой, на главную">
-      <img class="logo__img" src="assets/logo-auditstroy.jpg" width="40" height="40" alt="">
-      <span>АудитСтрой<small>обследование зданий, Курган</small></span>
+      <img class="logo__img" src="assets/logo-auditstroy.jpg" width="48" height="48" alt="">
+      
     </a>
     <nav aria-label="Разделы">
       <a href="#situacii">Вопросы и ответы</a>
@@ -216,9 +216,8 @@
 <section class="hero">
   <div class="wrap">
     <div class="hero__text">
-      <p class="brand" aria-hidden="true">АУДИТСТРОЙ</p>
-      <p class="brand__sub">обследование зданий и сооружений, строительная экспертиза</p>
-      <h1>Обследуем здания и оформляем перепланировки в Кургане и области</h1>
+      <p class="brand">АУДИТСТРОЙ</p>
+      <h1 class="brand__sub">Обследование зданий, строительная экспертиза и перепланировки в Кургане и области</h1>
       <p class="lead">Скажем, в каком состоянии дом или квартира, и подготовим документы, которые примут администрация, банк и суд. Пришлите фото или план, и мы бесплатно ответим, что делать и сколько это стоит.</p>
       <div class="btns">
         <a class="btn btn--main" href="https://t.me/MuzAleksandr" target="_blank" rel="noopener">Написать в Telegram</a>
